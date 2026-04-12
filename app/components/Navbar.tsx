@@ -17,6 +17,7 @@ export default function Navbar() {
           <a href="#analyzer" className="text-sm text-slate-400 hover:text-slate-200 transition-colors duration-150">Analyze</a>
           <a href="#how-it-works" className="text-sm text-slate-400 hover:text-slate-200 transition-colors duration-150">How it works</a>
           <a href="#what-we-detect" className="text-sm text-slate-400 hover:text-slate-200 transition-colors duration-150">What we detect</a>
+          <a href="/history" className="text-sm text-slate-400 hover:text-slate-200 transition-colors duration-150">History</a>
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />

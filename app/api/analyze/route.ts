@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { runRuleEngine, getRuleEngineSummary } from "../../lib/ruleEngine";
 import { runURLScanner } from "../../lib/urlScanner";
+import { supabase } from "../../lib/supabase";
 
 export async function POST(req: NextRequest) {
   try {
@@ -121,6 +122,24 @@ Rules:
     }
 
     result.score = Math.min(100, Math.max(0, Math.round(result.score)));
+
+    // ── Save to Supabase Database ─────────────────────────────────────────────
+    const { error: dbError } = await supabase.from("scans").insert({
+      input_text: text,
+      score: result.score,
+      verdict: result.verdict,
+      reasons: result.reasons,
+      explanation: result.explanation,
+      detected_urls: ruleResult.detectedURLs,
+      flagged_categories: ruleResult.flaggedRules.map((r) => r.category),
+      url_threats: urlScanResult.hasThreats,
+    });
+
+    if (dbError) {
+      console.error("Database save error:", dbError);
+    } else {
+      console.log("Scan saved to database successfully!");
+    }
 
     // Return everything including layer data
     return NextResponse.json({

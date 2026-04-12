@@ -1,6 +1,6 @@
+import { runURLScanner, URLScannerResult } from "../../lib/urlScanner";
 import { NextRequest, NextResponse } from "next/server";
 import { runRuleEngine, getRuleEngineSummary } from "../../lib/ruleEngine";
-import { runURLScanner } from "../../lib/urlScanner";
 import { supabase } from "../../lib/supabase";
 
 export async function POST(req: NextRequest) {
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     console.log("Layer 1 - Rule engine:", ruleResult);
 
     // ── Layer 2: URL Scanner ──────────────────────────────────────────────────
-    let urlScanResult = { scannedURLs: [], hasThreats: false, urlThreatScore: 0 };
+    let urlScanResult: URLScannerResult = { scannedURLs: [], hasThreats: false, urlThreatScore: 0 };
     if (ruleResult.hasURLs) {
       console.log("Layer 2 - Scanning URLs:", ruleResult.detectedURLs);
       urlScanResult = await runURLScanner(ruleResult.detectedURLs);

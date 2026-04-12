@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ScamShield
 
-## Getting Started
+AI-powered scam detection platform that analyzes messages, emails, and URLs in real time.
 
-First, run the development server:
+Live Demo: https://scamshield-beta.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What is ScamShield?
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+ScamShield is a  project that solves a real world problem — online scams.
+India loses over 1,750 crore every year to cyber scams. ScamShield helps everyday users
+identify scam messages instantly using a three layer AI detection system.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Paste any suspicious message, email, or URL and get:
+- A scam probability score (0-100%)
+- Specific reasons why it looks suspicious
+- A plain English AI explanation
+- Full scan history saved to database
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Three Layer Detection System
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Layer 1 — Rule Engine (Custom Built)
+Our own scam detection logic that instantly checks for urgency tactics, prize and reward claims, personal information requests, financial scam patterns, threat and fear tactics, and impersonation attempts.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Layer 2 — URL Scanner (VirusTotal)
+Any URLs in the message are scanned against 70+ security databases in real time to check for phishing and malware.
 
-## Deploy on Vercel
+### Layer 3 — AI Analysis (Groq + LLaMA 70B)
+A large language model reads the full message with context from Layers 1 and 2 to generate a final risk score and plain English explanation.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 16, TypeScript, Tailwind CSS |
+| Backend | Next.js API Routes |
+| AI Model | LLaMA 3.3 70B via Groq API |
+| URL Scanner | VirusTotal API |
+| Database | Supabase (PostgreSQL) |
+| Deployment | Vercel |
+
+---
+
+## Project Structure
+
+    scamshield/
+    ├── app/
+    │   ├── components/
+    │   │   ├── Navbar.tsx
+    │   │   ├── Hero.tsx
+    │   │   ├── Stats.tsx
+    │   │   ├── Analyzer.tsx
+    │   │   ├── HowItWorks.tsx
+    │   │   ├── WhatWeDetect.tsx
+    │   │   ├── Footer.tsx
+    │   │   └── Background.tsx
+    │   ├── api/
+    │   │   └── analyze/
+    │   │       └── route.ts
+    │   ├── history/
+    │   │   └── page.tsx
+    │   └── lib/
+    │       ├── ruleEngine.ts
+    │       ├── urlScanner.ts
+    │       └── supabase.ts
+
+---
+
+## Features
+
+- Real time scam analysis using AI
+- Three independent detection layers
+- URL threat scanning against 70+ databases
+- Scan history saved to database
+- Clean responsive dark themed UI
+- Works on mobile and desktop
+
+---
+
+## Real World Impact
+
+ScamShield detects:
+- Phishing URLs disguised as trusted brands
+- Fake prize and lottery scams
+- Urgency tricks designed to bypass thinking
+- Impersonation of banks and government
+- Financial fraud and advance fee scams
+- Social engineering attempts
+
+---
+
+
+## Getting Started Locally
+
+1. Clone the repository
+
+    git clone https://github.com/YashHub-Rajput/ScamShield.git
+    cd ScamShield
+
+2. Install dependencies
+
+    npm install
+
+3. Create .env.local and add your keys
+
+    GROQ_API_KEY=your_groq_key
+    VIRUSTOTAL_API_KEY=your_virustotal_key
+    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+4. Run the development server
+
+    npm run dev
+
+5. Open http://localhost:3000
+
+---
+
+## Built By
+
+Yash Rajput 
+
+---
+
+## License
+
+This project is open source and available under the MIT License.

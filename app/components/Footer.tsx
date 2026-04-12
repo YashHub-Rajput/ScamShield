@@ -13,7 +13,7 @@ export default function Footer() {
           </span>
         </div>
         <p className="font-mono text-xs text-slate-600">
-          Built as a final year project · Powered by Groq AI
+          Don&apos;t get scammed. Get ScamShield · Powered by Groq AI
         </p>
         <p className="font-mono text-xs text-slate-600">
           © 2026 ScamShield

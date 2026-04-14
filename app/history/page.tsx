@@ -176,9 +176,18 @@ export default function HistoryPage() {
 
   useEffect(() => {
     async function fetchScans() {
+      const { data: userData } = await supabase.auth.getUser();
+      const user = userData?.user;
+
+      if (!user) {
+        window.location.href = "/";
+        return;
+      }
+
       const { data, error } = await supabase
         .from("scans")
         .select("*")
+        .eq("user_id", user.id)
         .order("created_at", { ascending: false });
 
       if (error) {

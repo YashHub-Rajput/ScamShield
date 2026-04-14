@@ -5,7 +5,7 @@ import { supabase } from "../../lib/supabase";
 
 export async function POST(req: NextRequest) {
   try {
-    const { text } = await req.json();
+    const { text, userId } = await req.json();
 
     if (!text || text.trim().length === 0) {
       return NextResponse.json(
@@ -133,6 +133,7 @@ Rules:
       detected_urls: ruleResult.detectedURLs,
       flagged_categories: ruleResult.flaggedRules.map((r) => r.category),
       url_threats: urlScanResult.hasThreats,
+      user_id: userId || null,
     });
 
     if (dbError) {

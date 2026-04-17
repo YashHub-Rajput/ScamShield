@@ -1,9 +1,45 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
+
 export default function Stats() {
+  const [totalScans, setTotalScans] = useState<number>(0);
+  const [highRisk, setHighRisk] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchStats() {
+      const { data, error } = await supabase
+        .from("scans")
+        .select("score");
+
+      if (!error && data) {
+        setTotalScans(data.length);
+        setHighRisk(data.filter((s) => s.score >= 70).length);
+      }
+      setLoading(false);
+    }
+    fetchStats();
+  }, []);
+
   const stats = [
-    { value: "3 Layers", label: "Detection system" },
-    { value: "95%+", label: "Accuracy rate" },
-    { value: "3 sec", label: "Analysis time" },
-    { value: "100%", label: "Free to use" },
+    {
+      value: loading ? "..." : `${totalScans}+`,
+      label: "Scams analyzed",
+    },
+    {
+      value: loading ? "..." : `${highRisk}+`,
+      label: "High risk detected",
+    },
+    {
+      value: "3",
+      label: "Detection layers",
+    },
+    {
+      value: "100%",
+      label: "Free to use",
+    },
   ];
 
   return (
